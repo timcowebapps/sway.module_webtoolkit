@@ -1,0 +1,31 @@
+$color-primary: #85b25e;
+$color-secondary: #5ea8b2;
+$color-accent: #b25e7e;
+
+$color-shade-amount: 15%;
+$color-trans-amount: 0.5;
+
+$colors: (
+	primary: (
+		base: $color-primary,
+		light: lighten($color-primary, $color-shade-amount),
+		dark: darken($color-primary, $color-shade-amount),
+		trans: transparentize($color-primary, $color-trans-amount)
+	),
+	secondary: (
+		base: $color-secondary,
+		light: lighten($color-secondary, $color-shade-amount),
+		dark: darken($color-secondary, $color-shade-amount),
+		trans: transparentize($color-secondary, $color-trans-amount)
+	),
+	accent: (
+		base: $color-accent,
+		light: lighten($color-accent, $color-shade-amount),
+		dark: darken($color-accent, $color-shade-amount),
+		trans: transparentize($color-accent, $color-trans-amount)
+	)
+);
+
+@function color($color-name, $color-variant) {
+	@return map-get(map-get($colors, $color-name), $color-variant);
+}

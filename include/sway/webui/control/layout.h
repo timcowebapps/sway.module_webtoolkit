@@ -1,11 +1,12 @@
-#ifndef _SWAY_WEBUI_LAYOUT_H
-#define _SWAY_WEBUI_LAYOUT_H
+#ifndef _SWAY_WEBUI_CONTROL_LAYOUT_H
+#define _SWAY_WEBUI_CONTROL_LAYOUT_H
 
 #include <sway/webcore/base/treenodeelement.h>
 #include <sway/webcore/prereqs.h>
 
 NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
+NAMESPACE_BEGIN(control)
 
 class Layout
 	: public webcore::base::TreeNodeElement {
@@ -39,7 +40,8 @@ public:
 private:
 };
 
+NAMESPACE_END(control)
 NAMESPACE_END(webui)
 NAMESPACE_END(sway)
 
-#endif // _SWAY_WEBUI_LAYOUT_H
+#endif // _SWAY_WEBUI_CONTROL_LAYOUT_H

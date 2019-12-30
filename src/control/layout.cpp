@@ -1,8 +1,9 @@
-#include <sway/webui/layout.h>
+#include <sway/webui/control/layout.h>
 #include <sway/webcore/base/treeupdater.h>
 
 NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
+NAMESPACE_BEGIN(control)
 
 void Layout::registerEmscriptenClass(lpcstr_t classname) {
 	emscripten::class_<Layout, emscripten::base<webcore::base::TreeNodeElement>>(classname)
@@ -15,5 +16,6 @@ Layout::Layout(core::containers::HierarchyNodePtr_t parent,
 	// Empty
 }
 
+NAMESPACE_END(control)
 NAMESPACE_END(webui)
 NAMESPACE_END(sway)
