@@ -5,8 +5,8 @@ NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
 
 void Label::registerEmscriptenClass(lpcstr_t classname) {
-	emscripten::class_<Label, emscripten::base<base::TreeNodeElement>>(classname)
-		.constructor<core::containers::HierarchyNodePtr_t, std::string, base::TreeNodeElementCreateInfo>()
+	emscripten::class_<Label, emscripten::base<webcore::base::TreeNodeElement>>(classname)
+		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::base::TreeNodeElementCreateInfo>()
 		.smart_ptr<LabelSmartPtr_t>("LabelSmartPtr_t")
 		.class_function("createControl", &Label::createControl, emscripten::allow_raw_pointers())
 		.function("setStyleSheet", &Label::setStyleSheet)
@@ -17,7 +17,7 @@ void Label::registerEmscriptenClass(lpcstr_t classname) {
 }
 
 LabelSmartPtr_t Label::createControl(core::containers::HierarchyNodePtr_t parent, const std::string & nodeId,
-	const base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content) {
+	const webcore::base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content) {
 
 	auto instance = std::make_shared<Label>(parent, nodeId, createInfo);
 	instance->setStyleSheet(styleSheet);
@@ -27,12 +27,12 @@ LabelSmartPtr_t Label::createControl(core::containers::HierarchyNodePtr_t parent
 }
 
 Label::Label(core::containers::HierarchyNodePtr_t parent,
-	const std::string & nodeId, const base::TreeNodeElementCreateInfo & createInfo)
-	: base::TreeNodeElement(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
+	const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo)
+	: webcore::base::TreeNodeElement(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 
-void Label::accept(base::ITreeVisitor * visitor) {
+void Label::accept(webcore::base::ITreeVisitor * visitor) {
 	visitor->visitOnEnter(this);
 
 	for (core::containers::HierarchyNodePtr_t node : getChildren())

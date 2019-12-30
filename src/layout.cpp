@@ -5,13 +5,13 @@ NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
 
 void Layout::registerEmscriptenClass(lpcstr_t classname) {
-	emscripten::class_<Layout, emscripten::base<base::TreeNodeElement>>(classname)
-		.constructor<core::containers::HierarchyNodePtr_t, std::string, base::TreeNodeElementCreateInfo>();
+	emscripten::class_<Layout, emscripten::base<webcore::base::TreeNodeElement>>(classname)
+		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::base::TreeNodeElementCreateInfo>();
 }
 
 Layout::Layout(core::containers::HierarchyNodePtr_t parent,
-	const std::string & nodeId, const base::TreeNodeElementCreateInfo & createInfo)
-	: base::TreeNodeElement(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
+	const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo)
+	: webcore::base::TreeNodeElement(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 

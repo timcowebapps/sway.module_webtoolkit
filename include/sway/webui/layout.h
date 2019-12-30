@@ -8,7 +8,7 @@ NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
 
 class Layout
-	: public base::TreeNodeElement {
+	: public webcore::base::TreeNodeElement {
 
 public:
 
@@ -26,7 +26,7 @@ public:
 	 *    Выполняет инициализацию нового экземпляра класса.
 	 */
 	Layout(core::containers::HierarchyNodePtr_t parent,
-		const std::string & nodeId, const base::TreeNodeElementCreateInfo & createInfo);
+		const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo);
 
 	/*!
 	 * \brief

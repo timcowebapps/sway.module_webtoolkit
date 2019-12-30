@@ -11,7 +11,7 @@ class Label;
 typedef std::shared_ptr<Label> LabelSmartPtr_t;
 
 class Label
-	: public base::TreeNodeElement {
+	: public webcore::base::TreeNodeElement {
 
 public:
 
@@ -20,7 +20,7 @@ public:
 	static void registerEmscriptenClass(lpcstr_t classname);
 
 	static LabelSmartPtr_t createControl(core::containers::HierarchyNodePtr_t parent, const std::string & nodeId,
-		const base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content);
+		const webcore::base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content);
 
 	#pragma endregion // Static methods
 
@@ -32,7 +32,7 @@ public:
 	 *    Выполняет инициализацию нового экземпляра класса.
 	 */
 	Label(core::containers::HierarchyNodePtr_t parent,
-		const std::string & nodeId, const base::TreeNodeElementCreateInfo & createInfo);
+		const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo);
 
 	/*!
 	 * \brief
@@ -42,7 +42,7 @@ public:
 
 	#pragma endregion // Constructor / Destructor
 
-	virtual void accept(base::ITreeVisitor * visitor);
+	virtual void accept(webcore::base::ITreeVisitor * visitor);
 
 	#pragma region Getters / Setters
 
