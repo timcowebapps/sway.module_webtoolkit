@@ -1,5 +1,5 @@
-#ifndef _SWAY_WEBUI_CONTROL_LABELCTRL_H
-#define _SWAY_WEBUI_CONTROL_LABELCTRL_H
+#ifndef _SWAY_WEBUI_CONTROL_LABEL_H
+#define _SWAY_WEBUI_CONTROL_LABEL_H
 
 #include <sway/webcore/base/treenodeelement.h>
 #include <sway/webcore/prereqs.h>
@@ -8,9 +8,9 @@ NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
 NAMESPACE_BEGIN(control)
 
-typedef std::shared_ptr<class LabelCtrl> LabelSmartPtr_t;
+typedef std::shared_ptr<class Label> LabelSmartPtr_t;
 
-class LabelCtrl
+class Label
 	: public webcore::base::TreeNodeElement {
 
 public:
@@ -31,20 +31,24 @@ public:
 	 *    Конструктор класса.
 	 *    Выполняет инициализацию нового экземпляра класса.
 	 */
-	LabelCtrl(core::containers::HierarchyNodePtr_t parent,
+	Label(core::containers::HierarchyNodePtr_t parent,
 		const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo);
 
 	/*!
 	 * \brief
 	 *    Виртуальный деструктор класса.
 	 */
-	virtual ~LabelCtrl() = default;
+	virtual ~Label() = default;
 
 #pragma endregion // Constructor / Destructor
 
+#pragma region "IVisitable > HierarchyNode > TreeNodeElement implementation"
+
 	virtual void accept(webcore::base::ITreeVisitor * visitor);
 
-#pragma region Getters / Setters
+#pragma endregion // IVisitable > HierarchyNode > TreeNodeElement
+
+#pragma region "Getters / Setters"
 
 	void setStyleSheet(emscripten::val styleSheet);
 
@@ -68,4 +72,4 @@ NAMESPACE_END(control)
 NAMESPACE_END(webui)
 NAMESPACE_END(sway)
 
-#endif // _SWAY_WEBUI_CONTROL_LABELCTRL_H
+#endif // _SWAY_WEBUI_CONTROL_LABEL_H
