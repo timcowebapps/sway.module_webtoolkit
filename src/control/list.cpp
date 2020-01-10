@@ -1,8 +1,6 @@
 #include <sway/webui/control/list.h>
-#include <sway/webcore/base/treeupdater.h>
-// #include <sway/webcore/model/abstractitemcollection.h>
-// #include <sway/webcore/model/abstractitemmodel.h>
-#include <sway/webui/emscriptenutil.h>
+#include <sway/webcore/treeupdater.h>
+#include <sway/webcore/css/stylesheet.h>
 
 NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
@@ -10,15 +8,14 @@ NAMESPACE_BEGIN(control)
 
 void List::registerEmscriptenClass(lpcstr_t classname) {
 	emscripten::class_<List, emscripten::base<webcore::AVisualComponent>>(classname)
-		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::base::TreeNodeElementCreateInfo>()
+		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::TreeNodeElementCreateInfo>()
 		//.smart_ptr<ListSmartPtr_t>("ListSmartPtr_t")
 		.class_function("create", &List::create, emscripten::allow_raw_pointers())
-		.function("makeItem", &List::makeItem, emscripten::allow_raw_pointers())
-		.function("setStyleSheet", &List::setStyleSheet);
+		.function("makeItem", &List::makeItem, emscripten::allow_raw_pointers());
 }
 
 ListSmartPtr_t List::create(core::containers::HierarchyNodePtr_t parent, const std::string & nodeId,
-	const webcore::base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet) {
+	const webcore::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet) {
 
 	//auto instance = std::make_shared<List>(parent, nodeId, createInfo);
 	auto instance = new List(parent, nodeId, createInfo);
@@ -29,12 +26,12 @@ ListSmartPtr_t List::create(core::containers::HierarchyNodePtr_t parent, const s
 }
 
 List::List(core::containers::HierarchyNodePtr_t parent,
-	const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo)
+	const std::string & nodeId, const webcore::TreeNodeElementCreateInfo & createInfo)
 	: webcore::AVisualComponent(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 
-void List::accept(webcore::base::ITreeVisitor * visitor) {
+void List::accept(webcore::ITreeVisitor * visitor) {
 	visitor->visitOnEnter(this);
 
 	for (core::containers::HierarchyNodePtr_t node : getChildren())
@@ -46,19 +43,11 @@ void List::update() {
 }
 
 void List::makeItem(u32_t index, webcore::AVisualComponent * item) {
-	//auto collection = static_cast<webcore::model::AbstractItemCollection *>(getModel());
+	//auto collection = static_cast<webcore::ACollectionModel *>(getModel());
 	item->setNodeId(core::misc::format("%s_%i", item->getNodeId().c_str(), index));
 	//item->setModel(collection->getItem(index));
 	item->initialize();
 	addChild(item);
-}
-
-void List::setStyleSheet(emscripten::val styleSheet) {
-	if (EmscriptenUtil::isNone(styleSheet) || EmscriptenUtil::isNone(styleSheet["list"]))
-		return;
-
-	_styleSheet.insert(std::make_pair("list", styleSheet["list"].as<std::string>()));
-	setHtmlElementClasses(_styleSheet["list"]);
 }
 
 NAMESPACE_END(control)

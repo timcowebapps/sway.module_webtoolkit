@@ -20,7 +20,9 @@ export class List {
 
 		this.wasm_module = new wasm_context.module.List(parent, nodeId,
 			_.defaults(nodeCreateInfo, {
-				tagname: "ul"
-			})/*, stylesheet*/);
+				tagname: "ui",
+				stylesheet: null,
+				classes: []
+			}));
 	}
 };

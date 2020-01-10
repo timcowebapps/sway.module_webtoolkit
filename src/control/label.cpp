@@ -1,17 +1,16 @@
 #include <sway/webui/control/label.h>
-#include <sway/webcore/base/treeupdater.h>
-#include <sway/webui/emscriptenutil.h>
+#include <sway/webcore/treeupdater.h>
+#include <sway/webcore/css/stylesheet.h>
 
 NAMESPACE_BEGIN(sway)
 NAMESPACE_BEGIN(webui)
 NAMESPACE_BEGIN(control)
 
 void Label::registerEmscriptenClass(lpcstr_t classname) {
-	emscripten::class_<Label, emscripten::base<webcore::base::TreeNodeElement>>(classname)
-		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::base::TreeNodeElementCreateInfo>()
+	emscripten::class_<Label, emscripten::base<webcore::AVisualComponent>>(classname)
+		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::TreeNodeElementCreateInfo>()
 		.smart_ptr<LabelSmartPtr_t>("LabelSmartPtr_t")
 		.class_function("create", &Label::create, emscripten::allow_raw_pointers())
-		.function("setStyleSheet", &Label::setStyleSheet)
 		.function("setFontFamily", &Label::setFontFamily)
 		.function("setColor", &Label::setColor)
 		.function("getText", &Label::getText)
@@ -19,7 +18,7 @@ void Label::registerEmscriptenClass(lpcstr_t classname) {
 }
 
 LabelSmartPtr_t Label::create(core::containers::HierarchyNodePtr_t parent, const std::string & nodeId,
-	const webcore::base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content) {
+	const webcore::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet, const std::string & content) {
 
 	auto instance = std::make_shared<Label>(parent, nodeId, createInfo);
 	instance->setStyleSheet(styleSheet);
@@ -29,24 +28,16 @@ LabelSmartPtr_t Label::create(core::containers::HierarchyNodePtr_t parent, const
 }
 
 Label::Label(core::containers::HierarchyNodePtr_t parent,
-	const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo)
-	: webcore::base::TreeNodeElement(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
+	const std::string & nodeId, const webcore::TreeNodeElementCreateInfo & createInfo)
+	: webcore::AVisualComponent(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 
-void Label::accept(webcore::base::ITreeVisitor * visitor) {
+void Label::accept(webcore::ITreeVisitor * visitor) {
 	visitor->visitOnEnter(this);
 
 	for (core::containers::HierarchyNodePtr_t node : getChildren())
 		static_cast<Label *>(node)->accept(visitor);
-}
-
-void Label::setStyleSheet(emscripten::val styleSheet) {
-	if (EmscriptenUtil::isNone(styleSheet) || EmscriptenUtil::isNone(styleSheet["label"]))
-		return;
-
-	_styleSheet.insert(std::make_pair("label", styleSheet["label"].as<std::string>()));
-	setHtmlElementClasses(_styleSheet["label"]);
 }
 
 void Label::setFontFamily(const std::string & fontFamily) {

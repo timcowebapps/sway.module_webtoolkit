@@ -2,8 +2,7 @@
 #define _SWAY_WEBUI_CONTROL_LIST_H
 
 #include <sway/webcore/visualcomponent.h>
-// #include <sway/webcore/model/abstractitemmodel.h>
-#include <sway/webcore/base/treenodeelement.h>
+#include <sway/webcore/treenodeelement.h>
 #include <sway/webcore/prereqs.h>
 
 NAMESPACE_BEGIN(sway)
@@ -23,9 +22,9 @@ public:
 	static void registerEmscriptenClass(lpcstr_t classname);
 
 	static ListSmartPtr_t create(core::containers::HierarchyNodePtr_t parent, const std::string & nodeId,
-		const webcore::base::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet);
+		const webcore::TreeNodeElementCreateInfo & createInfo, emscripten::val styleSheet);
 
-#pragma endregion // Static methods
+#pragma endregion
 
 #pragma region "Constructor / Destructor"
 
@@ -35,7 +34,7 @@ public:
 	 *    Выполняет инициализацию нового экземпляра класса.
 	 */
 	List(core::containers::HierarchyNodePtr_t parent,
-		const std::string & nodeId, const webcore::base::TreeNodeElementCreateInfo & createInfo);
+		const std::string & nodeId, const webcore::TreeNodeElementCreateInfo & createInfo);
 
 	/*!
 	 * \brief
@@ -43,13 +42,13 @@ public:
 	 */
 	virtual ~List() = default;
 
-#pragma endregion // Constructor / Destructor
+#pragma endregion
 
 #pragma region "IVisitable > HierarchyNode > TreeNodeElement > AVisualComponent implementation"
 
-	virtual void accept(webcore::base::ITreeVisitor * visitor);
+	virtual void accept(webcore::ITreeVisitor * visitor);
 
-#pragma endregion // IVisitable > HierarchyNode > TreeNodeElement > AVisualComponent implementation
+#pragma endregion
 
 #pragma region "IObserver > AVisualComponent implementation"
 
@@ -59,18 +58,9 @@ public:
 	 */
 	virtual void update() override;
 
-#pragma endregion // IObserver > AVisualComponent implementation
+#pragma endregion
 
 	void makeItem(u32_t index, webcore::AVisualComponent * item);
-
-#pragma region "Getters / Setters"
-
-	void setStyleSheet(emscripten::val styleSheet);
-
-#pragma endregion // Getters / Setters
-
-private:
-	std::map<std::string, std::string> _styleSheet;
 };
 
 NAMESPACE_END(control)

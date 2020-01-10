@@ -1,6 +1,9 @@
 @import "./../colors.scss";
 
-.label {
+.b-label {
 	position: relative;
-	color: color(primary, base);
+}
+
+.b-label--blue {
+	color: color(secondary, base);
 }
