@@ -7,7 +7,7 @@ NAMESPACE_BEGIN(webui)
 NAMESPACE_BEGIN(control)
 
 void Label::registerEmscriptenClass(lpcstr_t classname) {
-	emscripten::class_<Label, emscripten::base<webcore::AVisualComponent>>(classname)
+	emscripten::class_<Label, emscripten::base<webcore::mvc::AView>>(classname)
 		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::TreeNodeElementCreateInfo>()
 		.smart_ptr<LabelSmartPtr_t>("LabelSmartPtr_t")
 		.class_function("create", &Label::create, emscripten::allow_raw_pointers())
@@ -29,7 +29,7 @@ LabelSmartPtr_t Label::create(core::containers::HierarchyNodePtr_t parent, const
 
 Label::Label(core::containers::HierarchyNodePtr_t parent,
 	const std::string & nodeId, const webcore::TreeNodeElementCreateInfo & createInfo)
-	: webcore::AVisualComponent(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
+	: webcore::mvc::AView(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 

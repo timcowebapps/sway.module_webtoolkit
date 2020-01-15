@@ -1,7 +1,7 @@
 #ifndef _SWAY_WEBUI_CONTROL_LABEL_H
 #define _SWAY_WEBUI_CONTROL_LABEL_H
 
-#include <sway/webcore/visualcomponent.h>
+#include <sway/webcore/mvc/view.h>
 #include <sway/webcore/treenodeelement.h>
 #include <sway/webcore/prereqs.h>
 
@@ -12,7 +12,7 @@ NAMESPACE_BEGIN(control)
 typedef std::shared_ptr<class Label> LabelSmartPtr_t;
 
 class Label
-	: public webcore::AVisualComponent {
+	: public webcore::mvc::AView {
 
 public:
 

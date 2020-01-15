@@ -7,7 +7,7 @@ NAMESPACE_BEGIN(webui)
 NAMESPACE_BEGIN(control)
 
 void List::registerEmscriptenClass(lpcstr_t classname) {
-	emscripten::class_<List, emscripten::base<webcore::AVisualComponent>>(classname)
+	emscripten::class_<List, emscripten::base<webcore::mvc::AView>>(classname)
 		.constructor<core::containers::HierarchyNodePtr_t, std::string, webcore::TreeNodeElementCreateInfo>()
 		//.smart_ptr<ListSmartPtr_t>("ListSmartPtr_t")
 		.class_function("create", &List::create, emscripten::allow_raw_pointers())
@@ -27,7 +27,7 @@ ListSmartPtr_t List::create(core::containers::HierarchyNodePtr_t parent, const s
 
 List::List(core::containers::HierarchyNodePtr_t parent,
 	const std::string & nodeId, const webcore::TreeNodeElementCreateInfo & createInfo)
-	: webcore::AVisualComponent(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
+	: webcore::mvc::AView(parent, core::containers::HierarchyNodeIndex(), nodeId, createInfo) {
 	// Empty
 }
 
@@ -42,7 +42,7 @@ void List::update() {
 	// Empty
 }
 
-void List::makeItem(u32_t index, webcore::AVisualComponent * item) {
+void List::makeItem(u32_t index, webcore::mvc::AView * item) {
 	//auto collection = static_cast<webcore::ACollectionModel *>(getModel());
 	item->setNodeId(core::misc::format("%s_%i", item->getNodeId().c_str(), index));
 	//item->setModel(collection->getItem(index));

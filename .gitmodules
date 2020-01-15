@@ -4,3 +4,6 @@
 [submodule "modules/sway.module_core"]
 	path = modules/sway.module_core
 	url = https://github.com/timcogames/sway.module_core.git
+[submodule "modules/sway.module_webcore.mvc"]
+	path = modules/sway.module_webcore.mvc
+	url = https://github.com/timcowebapps/sway.module_webcore.mvc

@@ -20,6 +20,10 @@ if (NOT TARGET libmodule_webcore)
 	add_subdirectory(modules/sway.module_webcore)
 endif()
 
+if (NOT TARGET libmodule_webcore.mvc)
+	add_subdirectory(modules/sway.module_webcore.mvc)
+endif()
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_COMPILER "emcc")
 
@@ -39,6 +43,7 @@ include_directories("/home/bonus85/emsdk/emscripten/incoming/system/include")
 include_directories(${MODULE_DIR}/include)
 include_directories(${MODULE_DIR}/modules/sway.module_core/include)
 include_directories(${MODULE_DIR}/modules/sway.module_webcore/include)
+include_directories(${MODULE_DIR}/modules/sway.module_webcore.mvc/include)
 
 # Получаем пути ко всем хедерам и исходникам библиотеки
 file(GLOB_RECURSE MODULE_HEADERS ${MODULE_DIR}/include/*.*)
@@ -50,4 +55,4 @@ set_target_properties(${META_LIB_NAME} PROPERTIES OUTPUT_NAME ${META_PROJECT_NAM
 set_target_properties(${META_LIB_NAME} PROPERTIES PREFIX "")
 set_target_properties(${META_LIB_NAME} PROPERTIES SUFFIX ".a.${META_VERSION}")
 
-target_link_libraries(${META_LIB_NAME} libmodule_webcore)
+target_link_libraries(${META_LIB_NAME} libmodule_webcore libmodule_webcore.mvc)

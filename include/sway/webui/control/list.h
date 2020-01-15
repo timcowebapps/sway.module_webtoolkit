@@ -1,7 +1,7 @@
 #ifndef _SWAY_WEBUI_CONTROL_LIST_H
 #define _SWAY_WEBUI_CONTROL_LIST_H
 
-#include <sway/webcore/visualcomponent.h>
+#include <sway/webcore/mvc/view.h>
 #include <sway/webcore/treenodeelement.h>
 #include <sway/webcore/prereqs.h>
 
@@ -13,7 +13,7 @@ NAMESPACE_BEGIN(control)
 typedef class List * ListSmartPtr_t;
 
 class List
-	: public webcore::AVisualComponent {
+	: public webcore::mvc::AView {
 
 public:
 
@@ -44,13 +44,13 @@ public:
 
 #pragma endregion
 
-#pragma region "IVisitable > HierarchyNode > TreeNodeElement > AVisualComponent implementation"
+#pragma region "IVisitable > HierarchyNode > TreeNodeElement > AView implementation"
 
 	virtual void accept(webcore::ITreeVisitor * visitor);
 
 #pragma endregion
 
-#pragma region "IObserver > AVisualComponent implementation"
+#pragma region "IObserver > AView implementation"
 
 	/*!
 	 * \brief
@@ -60,7 +60,7 @@ public:
 
 #pragma endregion
 
-	void makeItem(u32_t index, webcore::AVisualComponent * item);
+	void makeItem(u32_t index, webcore::mvc::AView * item);
 };
 
 NAMESPACE_END(control)
